@@ -14,23 +14,23 @@ import androidx.core.view.WindowInsetsCompat
 class MainActivity : AppCompatActivity() {
 
     var count: Int = 0
-    lateinit var textView_count: TextView//지연 초기화로 나중에 선언 하게 함
+    lateinit var textViewCount: TextView//지연 초기화로 나중에 선언 하게 함
     val activityResultLauncher = registerForActivityResult(//콜백 통로 설정하는 함수
-    /*
-        registerForActivityResult :
-            결과를 받기 위한 액티비티를 등록하는 함수
-            생명주기에서 현재 액티비티를 지우지 못하게 하기 위함
-        ActivityResultContracts :
-            액티비티 간 상호작용 시 타입 안정성을 위한 추상화된 계약 인터페이스 집합
+        /*
+            registerForActivityResult :
+                결과를 받기 위한 액티비티를 등록하는 함수
+                생명주기에서 현재 액티비티를 지우지 못하게 하기 위함
             ActivityResultContracts :
-                다른 액티비티를 지정하고, 데이터를 돌려받는 계약 형식
-    */
+                액티비티 간 상호작용 시 타입 안정성을 위한 추상화된 계약 인터페이스 집합
+                ActivityResultContracts :
+                    다른 액티비티를 지정하고, 데이터를 돌려받는 계약 형식
+        */
         ActivityResultContracts.StartActivityForResult()
     ) { result ->//다음 화면이 닫히면 해당 블록을 실행함
         if(result.resultCode == RESULT_OK) {
             count = result.data?.getIntExtra("RETURN_COUNT", 0) ?: 0
             //엘비스 연산자를 사용해서 0을 기본값으로 가짐
-            textView_count.text = count.toString()
+            textViewCount.text = count.toString()
         }
     }
 
@@ -57,26 +57,26 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        textView_count = findViewById<TextView>(R.id.textView_count)
-        val button_count = findViewById<Button>(R.id.button_count)//var 이 아니라 val 사용
+        textViewCount = findViewById(R.id.textView_count)
+        val buttonCount = findViewById<Button>(R.id.button_count)//var 이 아니라 val 사용
         /*
             findViewById : id를 이용해 주소값을 찾아 대입하는 함수
             <컴포넌트 타입> (id) R : 리소스의 약자, 모든 리소스 id : 고유 식별자
             Alt + Enter 로 모듈 가져올 수 있음
          */
-        val button_toast = findViewById<Button>(R.id.button_toast)
-        val button_random = findViewById<Button>(R.id.button_random)
+        val buttonToast = findViewById<Button>(R.id.button_toast)
+        val buttonRandom = findViewById<Button>(R.id.button_random)
 
-        button_count.setOnClickListener {//함수의 마지막 인자가 람다식일 경우{} 소괄호 생략 가능
+        buttonCount.setOnClickListener {//함수의 마지막 인자가 람다식일 경우{} 소괄호 생략 가능
             count++
-            textView_count.text = count.toString()
+            textViewCount.text = count.toString()
         }
 
-        button_toast.setOnClickListener {
-            showToastMessage("toast message")
+        buttonToast.setOnClickListener {
+            showToastMessage(getString(R.string.toast_message))
         }
 
-        button_random.setOnClickListener {
+        buttonRandom.setOnClickListener {
             changeActivityWithCount()
         }
 
