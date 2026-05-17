@@ -12,7 +12,7 @@ import kotlin.random.Random
 
 class MainActivity2 : AppCompatActivity() {
 
-    var result: Int = 0
+    var resultCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,17 +31,17 @@ class MainActivity2 : AppCompatActivity() {
         textGuide.text = getString(R.string.random_message, count)
         //가이트 텍스트 지정
 
-        result = Random.nextInt(0, count + 1)
+        resultCount = Random.nextInt(0, count + 1)
 
         val textResult = findViewById<TextView>(R.id.textView_random_result)
-        textResult.text = result.toString()
+        textResult.text = resultCount.toString()
         //결과 값 지정
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             //뒤로가기 버튼 감지
             override fun handleOnBackPressed() {
                 val intent = Intent()
-                intent.putExtra("RETURN_COUNT", result)
+                intent.putExtra("RETURN_COUNT", resultCount)
 
                 setResult(RESULT_OK, intent)
                 finish()

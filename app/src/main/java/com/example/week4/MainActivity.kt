@@ -2,6 +2,7 @@ package com.example.week4
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -12,7 +13,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
-
+    private val TAG = "LifecycleTest"
     var count: Int = 0
     lateinit var textViewCount: TextView//지연 초기화로 나중에 선언 하게 함
     val activityResultLauncher = registerForActivityResult(//콜백 통로 설정하는 함수
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        Log.d(TAG, "onCreate")
         textViewCount = findViewById(R.id.textView_count)
         val buttonCount = findViewById<Button>(R.id.button_count)//var 이 아니라 val 사용
         /*
@@ -80,5 +81,28 @@ class MainActivity : AppCompatActivity() {
             changeActivityWithCount()
         }
 
+    }override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy")
     }
 }
